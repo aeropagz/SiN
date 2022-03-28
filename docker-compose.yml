@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "80:8080"
+    depends_on:
+      - "db"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/sin
+      - SPRING_DATASOURCE_USERNAME=klaas
+      - SPRING_DATASOURCE_PASSWORD=password
+    links:
+      - "db"
+  db:
+    image: 'postgres:13.1-alpine'
+    environment:
+      - POSTGRES_USER=klaas
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./src/main/resources/static/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  pgdata:
