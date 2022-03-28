@@ -1,8 +1,13 @@
 package com.dataport.sin.controller;
 
 import com.dataport.sin.model.LoginDto;
+import com.dataport.sin.model.UserDto;
 import com.dataport.sin.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/api/user")
@@ -12,6 +17,7 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+        this.userService.initDb();
     }
 
     @GetMapping()
@@ -20,7 +26,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto) {
-        return "Hello World";
+    public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto) throws SQLException {
+        UserDto user = userService.login(loginDto);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
     }
 }

@@ -24,8 +24,20 @@
             <button type="button" class="btn btn-secondary" id="login-btn">Login</button>
         </form>
     </div>
-    <div id="response">
-
+    <div id="response-success" class="invisible text-center">
+        <h3>
+            Login Successfull
+        </h3>
+        <p>
+            Hello <span id="username-res"></span>!
+        </p>
+        <p>
+            Your Email: <span id="email-res"></span>
+        </p>
+    </div>
+    <div id="response-failed" class="invisible text-center">
+        <h3>Login Failed</h3>
+        <p>Username or Password wrong</p>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
