@@ -2,7 +2,7 @@ FROM maven:3.8.4 AS maven
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 # Compile and package the application to an executable JAR
-RUN mvn package
+RUN mvn package -DskipTests
 
 
 
