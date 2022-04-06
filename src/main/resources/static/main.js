@@ -4,7 +4,7 @@ $("#login-btn").on("click", () => {
   for (const line of data) {
     json[line.name] = line.value;
   }
-  $.ajax("http://localhost:8080/api/user/login", {
+  $.ajax("https://localhost:8080/api/user/login", {
     data: JSON.stringify(json),
     type: "post",
     contentType: "application/json",
@@ -26,3 +26,16 @@ function error_handler(data) {
   $("#response-success").addClass("invisible");
   $("#response-failed").removeClass("invisible");
 }
+
+$("#number-button").on("click", () => {
+  const data = $("#number-input").val();
+  $.ajax("https://localhost:8080/api/number/" + data, {
+    type: "post",
+    success: (data) => {
+      console.log(data);
+    },
+    error: (data) => {
+      console.log(data);
+    },
+  });
+});

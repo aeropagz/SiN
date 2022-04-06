@@ -1,6 +1,7 @@
 package com.dataport.sin.service;
 
 import com.dataport.sin.model.LoginDto;
+import com.dataport.sin.model.NumberDto;
 import com.dataport.sin.model.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,9 @@ public class UserService {
 
 
     public void initDb() {
+        if (conn != null)
+            return;
+
         Properties props = new Properties();
         props.setProperty("user", db_user);
         props.setProperty("password", db_pass);
@@ -50,6 +54,21 @@ public class UserService {
         else{
             return null;
         }
+    }
 
+    public NumberDto saveNumber(Integer number) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("""
+            INSERT INTO numbers (number) VALUES (?);
+        """);
+        stmt.setInt(1, number);
+        stmt.executeUpdate();
+        PreparedStatement allStmt = conn.prepareStatement("SELECT number FROM numbers");
+        ResultSet result = allStmt.executeQuery();
+        NumberDto numberDto = new NumberDto();
+
+        while(result.next()){
+            numberDto.addNumber(result.getInt(1));
+        }
+        return numberDto;
     }
 }
