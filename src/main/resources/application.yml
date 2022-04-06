@@ -3,3 +3,10 @@ spring:
     url: "jdbc:postgresql://localhost:5432/sin"
     username: "klaas"
     password: "password"
+server:
+  ssl:
+    key-alias: sin-https
+    key-store: classpath:dataport.jks
+    key-store-type: JKS
+    key-password: password
+  port: 8080
