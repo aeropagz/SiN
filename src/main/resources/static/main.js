@@ -9,7 +9,9 @@ function success_handler(data) {
 function error_handler(data) {
   console.log(data);
   $("#response-success").addClass("invisible");
-  $("#response-failed").removeClass("invisible");
+  $("#response-failed")
+    .removeClass("invisible")
+    .text(`Error: ${data.status} - ${data.responseJSON.error}`);
 }
 
 $("#number-button").on("click", () => {
@@ -35,6 +37,6 @@ async function console_fire() {
     contentType: "application/json",
     dataType: "json",
     success: (data) => console.log(data),
-    error: (data) => console.log(data),
+    error: error_handler,
   });
 }
