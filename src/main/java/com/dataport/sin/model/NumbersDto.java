@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Data
-public class NumberDto {
+public class NumbersDto {
     private List<Integer> numbers = new ArrayList<>();
 
     public void addNumber(Integer number){

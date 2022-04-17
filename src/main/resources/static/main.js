@@ -1,22 +1,7 @@
-$("#login-btn").on("click", () => {
-  const data = $("#login-form").serializeArray();
-  const json = {};
-  for (const line of data) {
-    json[line.name] = line.value;
-  }
-  $.ajax("https://localhost:8080/api/user/login", {
-    data: JSON.stringify(json),
-    type: "post",
-    contentType: "application/json",
-    success: success_handler,
-    error: error_handler,
-  });
-  console.log(json);
-});
-
 function success_handler(data) {
-  $("#username-res").text(data.username);
-  $("#email-res").text(data.email);
+  console.log(data);
+
+  $("#number-res").text(data.numbers);
   $("#response-success").removeClass("invisible");
   $("#response-failed").addClass("invisible");
 }
@@ -29,13 +14,27 @@ function error_handler(data) {
 
 $("#number-button").on("click", () => {
   const data = $("#number-input").val();
-  $.ajax("https://localhost:8080/api/number/" + data, {
+  if (isNaN(data)) {
+    alert("Its not a number you are sending");
+    return;
+  }
+  $.ajax("https://localhost:8080/api/number", {
     type: "post",
-    success: (data) => {
-      console.log(data);
-    },
-    error: (data) => {
-      console.log(data);
-    },
+    data: JSON.stringify({ number: data }),
+    contentType: "application/json",
+    dataType: "json",
+    success: success_handler,
+    error: error_handler,
   });
 });
+
+async function console_fire() {
+  $.ajax("https://localhost:8080/api/number", {
+    type: "post",
+    data: JSON.stringify({ number: "test" }),
+    contentType: "application/json",
+    dataType: "json",
+    success: (data) => console.log(data),
+    error: (data) => console.log(data),
+  });
+}
