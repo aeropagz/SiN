@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/user")  //http://localhost:8080/api/user/login
 public class UserController {
 
     private final UserService userService;

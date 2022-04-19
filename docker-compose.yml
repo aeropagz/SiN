@@ -1,7 +1,7 @@
 version: "3.9"
 services:
-  web:
-    build: .
+  backend:
+    build: ./backend
     ports:
       - "8080:8080"
     depends_on:
@@ -13,7 +13,7 @@ services:
     links:
       - "db"
   db:
-    image: 'postgres:13.1-alpine'
+    image: "postgres:13.1-alpine"
     environment:
       - POSTGRES_USER=klaas
       - POSTGRES_PASSWORD=password
@@ -21,8 +21,24 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - sinData:/var/lib/postgresql/data
       - ./src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  nginx:
+    build: frontend/
+    restart: unless-stopped
+    ports: 
+    - "80:80"
+    - "443:443"
+    depends_on: 
+      - "db"
+      - "backend"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/ssl:/usr/nginx
+    links:
+      - "backend"
+
   adminer:
     image: adminer
     restart: always
@@ -30,4 +46,4 @@ services:
       - "8081:8080"
 
 volumes:
-  pgdata:
+  sinData:

@@ -8,3 +8,5 @@ CREATE TABLE accounts
 );
 
 INSERT INTO accounts (username, password, email) VALUES ('admin', 'admin', 'admin@admin.de');
+
+
