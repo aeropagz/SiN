@@ -2,6 +2,8 @@ package com.dataport.sin.service;
 
 import com.dataport.sin.model.number.NumbersDto;
 import com.dataport.sin.model.number.SingleNumberDto;
+import com.dataport.sin.model.order.OrderDetailDto;
+import com.dataport.sin.model.order.OrderDto;
 import com.dataport.sin.model.user.LoginDto;
 import com.dataport.sin.model.user.RegisterDto;
 import com.dataport.sin.model.user.UserDto;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @Service
@@ -60,11 +64,9 @@ public class DbService {
     }
 
     public NumbersDto saveNumber(SingleNumberDto number) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("""
-                    INSERT INTO numbers (number) VALUES (?);
-                """);
-        stmt.setInt(1, number.getNumber());
-        stmt.executeUpdate();
+        String unsecureSql = " INSERT INTO numbers (number) VALUES (" + number.getNumber() + ");";
+        ResultSet resultSet = conn.createStatement().executeQuery(unsecureSql);
+
         PreparedStatement allStmt = conn.prepareStatement("SELECT number FROM numbers");
         ResultSet result = allStmt.executeQuery();
         NumbersDto numberDto = new NumbersDto();
@@ -85,5 +87,49 @@ public class DbService {
         stmt.setString(2, md5Pass);
         stmt.setString(3, registerDto.getEmail());
         stmt.executeUpdate();
+    }
+
+    public OrderDto saveOrder(OrderDto orderDto) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("""
+                    INSERT INTO orders (amount, good, userId) VALUES (?, ?, ?);
+                """);
+        stmt.setInt(1, orderDto.getAmount());
+        stmt.setString(2, orderDto.getGood());
+        stmt.setInt(3, orderDto.getCustomer());
+        stmt.executeUpdate();
+
+        ResultSet ids = stmt.getGeneratedKeys();
+        if (ids.next()) {
+            orderDto.setDid(ids.getInt(1));
+        }
+        return orderDto;
+    }
+
+    public List<OrderDto> getOrdersByUserId(String userId) throws SQLException {
+        List<OrderDto> orderDtos = new ArrayList<>();
+        String unsecureSql = "SELECT * FROM orders WHERE userId = " + userId + ";";
+        ResultSet rs = conn.createStatement().executeQuery(unsecureSql);
+        while (rs.next()) {
+            orderDtos.add(new OrderDto(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getInt(4)
+            ));
+        }
+        return orderDtos;
+    }
+
+    public OrderDetailDto getOrderById(String id) throws SQLException {
+        String unsecureSql = "SELECT * FROM orders " +
+                "JOIN  accounts on orders.userid = accounts.did where orders.did = " + id + ";";
+        ResultSet rs = conn.createStatement().executeQuery(unsecureSql);
+
+        if (rs.next()) {
+            UserDto user = new UserDto(rs.getInt(4), rs.getString(6), rs.getString(8));
+            return new OrderDetailDto(rs.getInt(1), rs.getInt(2), rs.getString(3), user);
+        } else {
+            return null;
+        }
     }
 }

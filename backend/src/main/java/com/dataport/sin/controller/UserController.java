@@ -29,7 +29,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) throws SQLException {
+    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         try {
             userService.register(registerDto);
             return ResponseEntity.ok("Register succesfull!");
@@ -43,8 +43,8 @@ public class UserController {
         UserDto user = userService.login(loginDto);
         if (user != null) {
             HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setAccessControlExposeHeaders(Arrays.asList("mySession"));
-            httpHeaders.set("mySession", user.getId().toString());
+            httpHeaders.setAccessControlExposeHeaders(Arrays.asList("session"));
+            httpHeaders.set("session", user.getId().toString());
             return ResponseEntity
                     .ok()
                     .headers(httpHeaders)
