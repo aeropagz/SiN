@@ -1,6 +1,7 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
+    <router-link to="/">Home</router-link>|
+    <router-link to="/number">Number</router-link>
     <button
       class="btn btn-outline-secondary btn-sm float-end"
       @click="logout()"

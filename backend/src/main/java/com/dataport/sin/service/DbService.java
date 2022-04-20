@@ -65,7 +65,7 @@ public class DbService {
 
     public NumbersDto saveNumber(SingleNumberDto number) throws SQLException {
         String unsecureSql = " INSERT INTO numbers (number) VALUES (" + number.getNumber() + ");";
-        ResultSet resultSet = conn.createStatement().executeQuery(unsecureSql);
+        conn.createStatement().executeUpdate(unsecureSql);
 
         PreparedStatement allStmt = conn.prepareStatement("SELECT number FROM numbers");
         ResultSet result = allStmt.executeQuery();
