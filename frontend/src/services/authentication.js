@@ -1,10 +1,12 @@
 import axios from "axios";
+import { saveSession } from "./localStorage.js";
+
 const API_URL = "https://localhost:8080/api/user/";
 class AuthService {
   login(user) {
     return axios.post(API_URL + "login", user).then((response) => {
-      if (response.headers.mysession) {
-        localStorage.setItem("session", response.headers.mysession);
+      if (response.headers.session) {
+        saveSession(response.headers.session);
       }
       return response.data;
     });
