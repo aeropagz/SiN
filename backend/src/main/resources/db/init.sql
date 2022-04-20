@@ -16,3 +16,7 @@ CREATE TABLE numbers
     number integer NOT NULL
 );
 
+
+grant all privileges on database sin to klaas;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO klaas;
