@@ -77,7 +77,10 @@ export default {
   },
   methods: {
     login() {
-      authService.login(this.input);
+      authService.login(this.input).then((data) => {
+        console.log(data);
+        this.$router.push("/");
+      });
     },
   },
 };

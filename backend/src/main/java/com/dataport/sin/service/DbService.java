@@ -42,6 +42,7 @@ public class DbService {
     }
 
     public UserDto login(LoginDto loginDto) throws SQLException {
+        String md5Pass = DigestUtils.md5Hex(loginDto.getPassword()).toUpperCase();
         PreparedStatement stmt = conn.prepareStatement("""
                 SELECT username, email, did
                 FROM accounts
@@ -49,7 +50,7 @@ public class DbService {
                 AND password = ?
                 """);
         stmt.setString(1, loginDto.getUsername());
-        stmt.setString(2, loginDto.getPassword());
+        stmt.setString(2, md5Pass);
         ResultSet result = stmt.executeQuery();
         if (result.next()) {
             return new UserDto(result.getInt(3), result.getString(1), result.getString(2));

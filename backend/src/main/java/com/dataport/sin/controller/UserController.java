@@ -30,14 +30,17 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) throws SQLException {
-        userService.register(registerDto);
-        return ResponseEntity.ok("Register succesfull!");
+        try {
+            userService.register(registerDto);
+            return ResponseEntity.ok("Register succesfull!");
+        } catch (SQLException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto, HttpServletResponse res) throws SQLException {
         UserDto user = userService.login(loginDto);
-
         if (user != null) {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccessControlExposeHeaders(Arrays.asList("mySession"));

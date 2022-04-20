@@ -59,14 +59,14 @@
                   type="button"
                   @click="login()"
                 >
-                  Login
+                  Register
                 </button>
               </div>
 
               <div>
                 <p class="mb-0">
                   You already have an account?
-                  <a href="#!" class="text-white-50 fw-bold">Sign In</a>
+                  <router-link to="/login">Sign In</router-link>
                 </p>
               </div>
             </div>
@@ -91,9 +91,12 @@ export default {
   },
   methods: {
     login() {
-      authService.register(this.input).then((code) => {
-        if (code == 200) {
-          this.$router.push("login");
+      authService.register(this.input).then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          this.$router.push("/login");
+        } else if (response.status === 403) {
+          console.log(response.data);
         }
       });
     },
