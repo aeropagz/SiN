@@ -10,10 +10,15 @@ class AuthService {
     });
   }
   register(user) {
-    return axios.post(API_URL + "register", user).then((response) => {
-      console.log(response);
-      return response.status;
-    });
+    return axios
+      .post(API_URL + "register", user)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        return error.response;
+      });
   }
 }
 export default new AuthService();
