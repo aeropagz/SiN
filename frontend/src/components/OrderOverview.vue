@@ -1,7 +1,12 @@
 <template>
   <h3>Your Orders</h3>
   <div class="d-flex flex-row flex-wrap">
-    <div v-for="order in orders" :key="order.did" class="m-3">
+    <div
+      v-for="order in orders"
+      :key="order.did"
+      class="m-3"
+      @click="openDetailView(order.did)"
+    >
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ order.good }}</h5>
@@ -34,8 +39,16 @@ export default {
     getOrders() {
       orderService.getOrders().then((response) => {
         console.log(response.data);
-        this.orders = response.data;
+        if (response.status == 200) {
+          this.orders = response.data;
+          console.log(this.data);
+        } else {
+          console.error(response.data);
+        }
       });
+    },
+    openDetailView(id) {
+      this.$router.push("/detail/" + id);
     },
   },
   mounted() {

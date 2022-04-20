@@ -18,7 +18,17 @@ class OrderService {
         return response;
       })
       .catch((error) => {
-        console.log(error.response.data);
+        return error.response;
+      });
+  }
+
+  getDetailOrder(orderId) {
+    return axios
+      .get(API_URL + orderId)
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
         return error.response;
       });
   }

@@ -1,6 +1,7 @@
 package com.dataport.sin.controller;
 
 
+import com.dataport.sin.model.order.OrderDetailDto;
 import com.dataport.sin.model.order.OrderDto;
 import com.dataport.sin.service.DbService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class OrderController {
             OrderDto savedOrder = dbService.saveOrder(orderDto);
             return ResponseEntity.ok(savedOrder);
         } catch (SQLException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -36,7 +37,17 @@ public class OrderController {
             List<OrderDto> orders = dbService.getOrdersByUserId(session);
             return ResponseEntity.ok(orders);
         } else {
-            return new ResponseEntity<String>("No Session id provied", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No Session id provied", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("{orderId}")
+    public ResponseEntity<?> getOrder(@PathVariable("orderId") String id) {
+        try {
+            OrderDetailDto order = dbService.getOrderById(id);
+            return ResponseEntity.ok(order);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
+import OrderDetailView from "../views/OrderDetail.vue";
+import { isAuthenticated } from "@/services/localStorage.js";
 
 const routes = [
   {
@@ -18,6 +20,12 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterView,
+  },
+  {
+    path: "/detail/:id",
+    name: "detail",
+    component: OrderDetailView,
+    props: true
   },
   {
     path: "/about",
@@ -48,9 +56,6 @@ router.beforeEach(async (to, from) => {
   }
 });
 
-function isAuthenticated() {
-  const session = localStorage.getItem("session");
-  return session !== null;
-}
+
 
 export default router;

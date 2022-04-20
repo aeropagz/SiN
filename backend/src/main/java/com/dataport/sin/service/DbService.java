@@ -2,6 +2,7 @@ package com.dataport.sin.service;
 
 import com.dataport.sin.model.number.NumbersDto;
 import com.dataport.sin.model.number.SingleNumberDto;
+import com.dataport.sin.model.order.OrderDetailDto;
 import com.dataport.sin.model.order.OrderDto;
 import com.dataport.sin.model.user.LoginDto;
 import com.dataport.sin.model.user.RegisterDto;
@@ -100,7 +101,7 @@ public class DbService {
         stmt.executeUpdate();
 
         ResultSet ids = stmt.getGeneratedKeys();
-        if(ids.next()){
+        if (ids.next()) {
             orderDto.setDid(ids.getInt(1));
         }
         return orderDto;
@@ -110,7 +111,7 @@ public class DbService {
         List<OrderDto> orderDtos = new ArrayList<>();
         String unsecureSql = "SELECT * FROM orders WHERE userId = " + userId + ";";
         ResultSet rs = conn.createStatement().executeQuery(unsecureSql);
-        while (rs.next()){
+        while (rs.next()) {
             orderDtos.add(new OrderDto(
                     rs.getInt(1),
                     rs.getInt(2),
@@ -119,5 +120,18 @@ public class DbService {
             ));
         }
         return orderDtos;
+    }
+
+    public OrderDetailDto getOrderById(String id) throws SQLException {
+        String unsecureSql = "SELECT * FROM orders " +
+                "JOIN  accounts on orders.userid = accounts.did where orders.did = " + id + ";";
+        ResultSet rs = conn.createStatement().executeQuery(unsecureSql);
+
+        if (rs.next()) {
+            UserDto user = new UserDto(rs.getInt(4), rs.getString(6), rs.getString(8));
+            return new OrderDetailDto(rs.getInt(1), rs.getInt(2), rs.getString(3), user);
+        } else {
+            return null;
+        }
     }
 }

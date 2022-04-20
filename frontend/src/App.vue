@@ -1,10 +1,32 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Home</router-link>
+    <button
+      class="btn btn-outline-secondary btn-sm float-end"
+      @click="logout()"
+    >
+      Logout
+    </button>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
+<script>
+import { deleteSession, isAuthenticated } from "@/services/localStorage";
+
+export default {
+  methods: {
+    logout() {
+      deleteSession();
+      this.$router.push("/login");
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return isAuthenticated();
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {

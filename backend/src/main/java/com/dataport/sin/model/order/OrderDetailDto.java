@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class OrderDto {
+public class OrderDetailDto {
     private int did;
     private int amount;
     private String good;
-    private int customer;
+    private UserDto customer;
 }
