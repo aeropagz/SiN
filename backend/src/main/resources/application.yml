@@ -12,3 +12,7 @@ server:
     key-store-password: password
     enabled: true
   port: 8080
+
+logging:
+  level:
+    root: INFO

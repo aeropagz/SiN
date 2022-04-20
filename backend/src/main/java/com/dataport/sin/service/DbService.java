@@ -78,7 +78,7 @@ public class DbService {
         String md5Pass = DigestUtils.md5Hex(registerDto.getPassword()).toUpperCase();
 
         PreparedStatement stmt = conn.prepareStatement("""
-                INSERT INTO account (username, password, email) VALUES (?,?,?);
+                INSERT INTO accounts (username, password, email) VALUES (?,?,?);
                 """);
         stmt.setString(1, registerDto.getUsername());
         stmt.setString(2, md5Pass);

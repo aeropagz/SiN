@@ -35,4 +35,22 @@ const router = createRouter({
   routes,
 });
 
+// eslint-disable-next-line no-unused-vars
+router.beforeEach(async (to, from) => {
+  if (
+    // make sure the user is authenticated
+    !isAuthenticated() &&
+    // ❗️ Avoid an infinite redirect
+    !["login", "register"].includes(to.name)
+  ) {
+    // redirect the user to the login page
+    return { name: "login" };
+  }
+});
+
+function isAuthenticated() {
+  const session = localStorage.getItem("session");
+  return session !== null;
+}
+
 export default router;
