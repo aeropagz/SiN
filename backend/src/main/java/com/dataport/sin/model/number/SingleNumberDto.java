@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class SingleNumberDto {
-    int number;
+    String number;
 }

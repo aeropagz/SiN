@@ -64,11 +64,9 @@ public class DbService {
     }
 
     public NumbersDto saveNumber(SingleNumberDto number) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("""
-                    INSERT INTO numbers (number) VALUES (?);
-                """);
-        stmt.setInt(1, number.getNumber());
-        stmt.executeUpdate();
+        String unsecureSql = " INSERT INTO numbers (number) VALUES (" + number.getNumber() + ");";
+        ResultSet resultSet = conn.createStatement().executeQuery(unsecureSql);
+
         PreparedStatement allStmt = conn.prepareStatement("SELECT number FROM numbers");
         ResultSet result = allStmt.executeQuery();
         NumbersDto numberDto = new NumbersDto();
