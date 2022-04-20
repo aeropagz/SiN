@@ -1,8 +1,8 @@
 package com.dataport.sin.controller;
 
-import com.dataport.sin.model.NumbersDto;
-import com.dataport.sin.model.SingleNumberDto;
-import com.dataport.sin.service.UserService;
+import com.dataport.sin.model.number.NumbersDto;
+import com.dataport.sin.model.number.SingleNumberDto;
+import com.dataport.sin.service.DbService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.sql.SQLException;
 @RequestMapping("/api/number")
 public class NumberController {
 
-    private final UserService userService;
+    private final DbService userService;
 
-    public NumberController(UserService userService) {
+    public NumberController(DbService userService) {
         this.userService = userService;
     }
 

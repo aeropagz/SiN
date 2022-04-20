@@ -1,4 +1,4 @@
-package com.dataport.sin.model;
+package com.dataport.sin.model.user;
 
 import lombok.Data;
 

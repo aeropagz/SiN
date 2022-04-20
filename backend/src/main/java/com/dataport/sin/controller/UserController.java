@@ -1,35 +1,51 @@
 package com.dataport.sin.controller;
 
-import com.dataport.sin.model.LoginDto;
-import com.dataport.sin.model.UserDto;
-import com.dataport.sin.service.UserService;
+import com.dataport.sin.model.user.LoginDto;
+import com.dataport.sin.model.user.RegisterDto;
+import com.dataport.sin.model.user.UserDto;
+import com.dataport.sin.service.DbService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 @RestController
-@RequestMapping("/api/user")  //http://localhost:8080/api/user/login
+@RequestMapping("/api/user")
 public class UserController {
 
-    private final UserService userService;
+    private final DbService userService;
 
-    public UserController(UserService userService) {
+    public UserController(DbService userService) {
         this.userService = userService;
         this.userService.initDb();
     }
 
-    @GetMapping()
-    public String hi() {
-        return "hi";
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) throws SQLException {
+        userService.register(registerDto);
+        return ResponseEntity.ok("Register succesfull!");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto) throws SQLException {
+    public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto, HttpServletResponse res) throws SQLException {
         UserDto user = userService.login(loginDto);
+
         if (user != null) {
-            return ResponseEntity.ok(user);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setAccessControlExposeHeaders(Arrays.asList("mySession"));
+            httpHeaders.set("mySession", user.getId().toString());
+            return ResponseEntity
+                    .ok()
+                    .headers(httpHeaders)
+                    .body(user);
         } else {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
