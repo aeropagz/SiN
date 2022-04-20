@@ -9,7 +9,9 @@
       Logout
     </button>
   </nav>
-  <router-view />
+  <div class="container">
+    <router-view />
+  </div>
 </template>
 <script>
 import { deleteSession, isAuthenticated } from "@/services/localStorage";

@@ -60,8 +60,10 @@ export default {
 ul {
   list-style: none;
 }
-
-.card:hover {
-  transform: scale(1.2);
+.card {
+  transition: 0.25s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 </style>
