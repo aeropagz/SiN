@@ -11,7 +11,7 @@
 
 <script>
 import axios from "axios";
-const API_URL = "https://localhost:8080/api/number/";
+//const API_URL = "https://localhost:8080/api/number/";
 
 export default {
   name: 'IntegerView',
@@ -23,10 +23,10 @@ export default {
     };
   },
   methods: {
-    /*async*/ sendInt() {
-      //let res = await axios.post("https://localhost:8080/api/number/", {number:this.number});
-      //console.log(res.data);
-      return axios
+    async sendInt() {
+      let res = await axios.post("https://localhost:8080/api/number/", {number:this.input.number});
+      console.log(res.data);
+      /*return axios
       .post(API_URL, {number:this.number})
       .then((response) => {
         return response;
@@ -34,7 +34,7 @@ export default {
       .catch((error) => {
         console.log(error.response.data);
         return error.response;
-      });
+      });*/
     },
   },
 }
