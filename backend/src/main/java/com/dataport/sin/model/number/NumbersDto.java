@@ -10,7 +10,7 @@ import java.util.List;
 public class NumbersDto {
     private List<Integer> numbers = new ArrayList<>();
 
-    public void addNumber(Integer number){
+    public void addNumber(int number){
         numbers.add(number);
     }
 }
