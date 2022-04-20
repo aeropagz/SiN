@@ -2,8 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
+import IntegerView from "../views/IntegerView.vue";
 import OrderDetailView from "../views/OrderDetail.vue";
 import { isAuthenticated } from "@/services/localStorage.js";
+
 
 const routes = [
   {
@@ -35,6 +37,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path:"/number",
+    name:"number",
+    component: IntegerView
   },
 ];
 
