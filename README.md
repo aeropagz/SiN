@@ -3,7 +3,6 @@
 ## A01:2021 – Fehler in der Zugriffskontrolle
 
 Fehler: 
- - CORS Wildcard
  - Auth ByPass mit Localstorage Item 
  - APIs generell unprotected
  - Url manipulation Orders
@@ -40,6 +39,7 @@ http://localhost/detail/1222%20UNION%20SELECT%20999%2C%20999%2C%20'999'%20const%
 Fehler:
   - Identification mit session Id (kann geändert werden im Localstorage)
   - admin:admin zugang
+  - Cred Stuffing
 
 ## A09:2021 – Security Logging and Monitoring Failures 
 Fehler:
