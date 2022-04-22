@@ -3,7 +3,6 @@
 ## A01:2021 – Fehler in der Zugriffskontrolle
 
 Fehler: 
- - CORS Wildcard
  - Auth ByPass mit Localstorage Item 
  - APIs generell unprotected
  - Url manipulation Orders
