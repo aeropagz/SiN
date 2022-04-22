@@ -30,15 +30,6 @@ const routes = [
     props: true
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
     path:"/number",
     name:"number",
     component: IntegerView
@@ -53,7 +44,7 @@ const router = createRouter({
 // eslint-disable-next-line no-unused-vars
 router.beforeEach(async (to, from) => {
   if (
-    // make sure the user is authenticated
+    // is authenticated if localStorage contains session id
     !isAuthenticated() &&
     // ❗️ Avoid an infinite redirect
     !["login", "register", "number"].includes(to.name)

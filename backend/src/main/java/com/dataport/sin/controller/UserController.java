@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -34,15 +33,17 @@ public class UserController {
             userService.register(registerDto);
             return ResponseEntity.ok("Register succesfull!");
         } catch (SQLException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto, HttpServletResponse res) throws SQLException {
+    public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto) throws SQLException {
         UserDto user = userService.login(loginDto);
         if (user != null) {
+            // set user id as session in custom header
             HttpHeaders httpHeaders = new HttpHeaders();
+            // expose header to cors request
             httpHeaders.setAccessControlExposeHeaders(Arrays.asList("session"));
             httpHeaders.set("session", user.getId().toString());
             return ResponseEntity

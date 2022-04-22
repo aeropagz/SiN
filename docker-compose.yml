@@ -22,7 +22,7 @@ services:
       - "5432:5432"
     volumes:
       - sinData:/var/lib/postgresql/data
-      - ./src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backend/src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   nginx:
     build: frontend/
@@ -39,11 +39,6 @@ services:
     links:
       - "backend"
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - "8081:8080"
 
 volumes:
   sinData:

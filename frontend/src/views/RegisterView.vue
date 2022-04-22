@@ -53,7 +53,7 @@
                 <button
                   class="btn btn-outline-light btn-lg px-5"
                   type="button"
-                  @click="login()"
+                  @click="register()"
                 >
                   Register
                 </button>
@@ -86,7 +86,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    register() {
       authService.register(this.input).then((response) => {
         console.log(response);
         if (response.status === 200) {
