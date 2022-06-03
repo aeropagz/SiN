@@ -45,8 +45,10 @@ public class InputHandler {
                     }
                     case 4 -> {
                         String filePath = getFilePath();
+                        System.out.println("Dein Hash zum Kontrollieren:");
+                        String hash = input.next();
                         Md5Hasher md5Hasher = new Md5Hasher(filePath);
-                        md5Hasher.checkHash();
+                        md5Hasher.checkHash(hash);
                     }
                     default -> throw new RuntimeException();
                 }

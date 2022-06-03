@@ -10,22 +10,31 @@ public class Md5Hasher extends FileHandler {
         super(filepath);
     }
 
-    public void hash() throws NoSuchAlgorithmException {
+    public String hash() throws NoSuchAlgorithmException {
+        System.out.println("Starte hashing...");
         try {
             open();
         } catch (IOException e) {
             System.out.println("Ungültiger Dateipfad");
-            return;
+            return null;
         }
-        System.out.println("Starte hashing...");
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(data);
         byte[] digest = md.digest();
         String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
-        System.out.println(myHash);
+        System.out.println("Hash: " + myHash);
+        return myHash;
     }
 
-    public void checkHash() {
-        System.out.println("Kontrollier Hash...");
+    public void checkHash(String check) throws NoSuchAlgorithmException {
+        String hash = hash();
+        if (hash == null) {
+            return;
+        }
+        if (hash.equals(check)) {
+            System.out.println("Hash ist korrekt");
+        } else {
+            System.out.println("Hash ist falsch!");
+        }
     }
 }
