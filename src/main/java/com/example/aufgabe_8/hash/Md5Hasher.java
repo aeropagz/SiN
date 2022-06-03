@@ -13,7 +13,7 @@ public class Md5Hasher extends FileHandler {
     public String hash() throws NoSuchAlgorithmException {
         System.out.println("Starte hashing...");
         try {
-            open();
+            read();
         } catch (IOException e) {
             System.out.println("Ungültiger Dateipfad");
             return null;

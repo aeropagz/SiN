@@ -32,11 +32,11 @@ public class InputHandler {
                     }
                     case 1 -> {
                         AesCrypto aesCrypto = setupCrypto();
-                        aesCrypto.encrypt();
+                        aesCrypto.encryptFile();
                     }
                     case 2 -> {
                         AesCrypto aesCrypto = setupCrypto();
-                        aesCrypto.decrypt();
+                        aesCrypto.decryptFile();
                     }
                     case 3 -> {
                         String filePath = getFilePath();
