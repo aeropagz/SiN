@@ -1,6 +1,6 @@
 package com.example.aufgabe_8;
 
-import com.example.aufgabe_8.crypto.AesCrypto;
+import com.example.aufgabe_8.crypto.AesCryptoGCM;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -12,15 +12,15 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class TestAesCrypto {
+public class TestAesCryptoGCM {
 
     @Test
     public void givenString_whenEncrypt_thenSuccess() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException,
             BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeySpecException {
 
         String input = "baeldung";
-        String encryptString = AesCrypto.encryptString(input, "password");
-        String plainText = AesCrypto.decryptString(encryptString, "password");
+        String encryptString = AesCryptoGCM.encryptString(input, "password");
+        String plainText = AesCryptoGCM.decryptString(encryptString, "password");
         Assertions.assertEquals(input, plainText);
     }
 }

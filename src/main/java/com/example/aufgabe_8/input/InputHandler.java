@@ -31,12 +31,12 @@ public class InputHandler {
                         return;
                     }
                     case 1 -> {
-                        AesCrypto aesCrypto = setupCrypto();
-                        aesCrypto.encryptFile();
+                        AesCrypto aesCryptoGCM = setupCrypto();
+                        aesCryptoGCM.encryptFile();
                     }
                     case 2 -> {
-                        AesCrypto aesCrypto = setupCrypto();
-                        aesCrypto.decryptFile();
+                        AesCrypto aesCryptoGCM = setupCrypto();
+                        aesCryptoGCM.decryptFile();
                     }
                     case 3 -> {
                         String filePath = getFilePath();
@@ -53,6 +53,7 @@ public class InputHandler {
                     default -> throw new RuntimeException();
                 }
             } catch (RuntimeException exception) {
+                exception.printStackTrace();
                 System.out.println("Ungültige Eingabe, bitte erneut versuchen!\n");
                 input.nextLine();
             }
