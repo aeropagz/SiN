@@ -2,17 +2,34 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <title>Register</title>
   </head>
   <body>
-    <h1>Register</h1>
-    <form >
-        <input type="text" name="username" id="username">
-        <input type="password" name="password" id="password">
-        <button>Register</button>
-    </form>
-    <canvas id="qr"></canvas>
+    <div class="container">
+      <h1>Register</h1>
+      <nav>
+        <a href="login.html">Go to Login</a>
+      </nav>
+      <form>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" />
+        <label for="password">Passwort:</label>
+        <input type="password" name="password" id="password" />
+      </form>
+      <button type="button" onclick="register()">Register</button>
+      <div class="validate">
+        <p>Register successfull! Setup your TOTP.</p>
+        <canvas id="qr"></canvas>
+      </div>
+    </div>
     <script src="../node_modules\qrious\dist\qrious.min.js"></script>
-    <script src="index.js"></script>
+    <script src="register.js"></script>
   </body>
 </html>

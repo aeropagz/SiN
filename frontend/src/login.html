@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <title>Login</title>
-</head>
-<body>
-    <h1>Login</h1>
-</body>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <nav>
+        <a href="register.html">Go to Register</a>
+      </nav>
+      <form>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" />
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" />
+        <label for="token">TOTP:</label>
+        <input type="text" name="token" id="token" />
+      </form>
+      <button type="button" onclick="login()">Login</button>
+      <div class="ok">Login successfull</div>
+      <div class="fail">Login failed</div>
+    </div>
+    <script src="login.js"></script>
+  </body>
 </html>
