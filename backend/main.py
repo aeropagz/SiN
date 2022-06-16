@@ -1,4 +1,3 @@
-import time
 import pyotp
 
 from flask import Flask, request, abort
@@ -41,7 +40,7 @@ def login():
     secret = users[username]["secret"]
     totp = pyotp.TOTP(secret)
     print(content)
-    if totp.verify(content["token"]) and password == users[username]["password"]:
+    if totp.verify(token) and password == users[username]["password"]:
         return "ok"
     else:
         abort(401)
