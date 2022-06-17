@@ -47,6 +47,7 @@ public class AesCrypto {
 
     private static String encryptString(String data, String pass) throws NoSuchPaddingException,
             NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+
         SecretKeySpec key = new SecretKeySpec(pass.getBytes(StandardCharsets.UTF_8), "AES");
         Cipher cipher = Cipher.getInstance("AES");
 
